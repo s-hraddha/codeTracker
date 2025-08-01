@@ -1,68 +1,96 @@
-const puppeteer = require('puppeteer');
+const axios = require("axios");
+const cheerio = require("cheerio");
 
-const fetchCodechefData = async (username) => {
-  const url = `https://www.codechef.com/users/${username}`;
 
-  const browser = await puppeteer.launch({
-    headless: "new",
-    args: ['--no-sandbox']
-  });
-
-  const page = await browser.newPage();
-
-  try {
-    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 0 });
-
-    // Wait for the rating section to appear
-    await page.waitForSelector('.rating-header', { timeout: 15000 });
-
-    const data = await page.evaluate(() => {
-      const getText = (selector) => {
-        const el = document.querySelector(selector);
-        return el ? el.innerText.trim() : null;
-      };
-
-      const name = getText('.user-profile-container header h1');
-      const currentRating = getText('.rating-number');
-      const stars = getText('.rating-star');
-      const highestRating = getText('.rating-header small');
-      const globalRank = getText('.rating-ranks .global-rank');
-      const countryRank = getText('.rating-ranks .country-rank');
-
-      const ratingData = Array.from(document.querySelectorAll('.rating-table tr'))
-        .slice(1) // skip header
-        .map(row => {
-          const cols = row.querySelectorAll('td');
-          return {
-            contest: cols[0]?.innerText.trim(),
-            rating: cols[1]?.innerText.trim(),
-            rank: cols[2]?.innerText.trim(),
-            solved: cols[3]?.innerText.trim()
-          };
-        });
-
-      const recentActivity = Array.from(document.querySelectorAll('.recent-activity-section li'))
-        .map(li => li.innerText.trim());
-
-      return {
-        name,
-        currentRating,
-        highestRating,
-        stars,
-        globalRank,
-        countryRank,
-        ratingData,
-        recentActivity
-      };
-    });
-
-    await browser.close();
-    return data;
-
-  } catch (error) {
-    await browser.close();
-    throw new Error('Failed to fetch CodeChef data: ' + error.message);
-  }
+const CODECHEF_BASE_URL = 'https://www.codechef.com';
+const CODECHEF_DEFAULT_HEADERS = {
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+  'Accept-Language': 'en-US,en;q=0.9',
+  'Accept-Encoding': 'gzip, deflate, br',
+  'Connection': 'keep-alive',
+  'Upgrade-Insecure-Requests': '1',
+  'Sec-Fetch-Dest': 'document',
+  'Sec-Fetch-Mode': 'navigate',
+  'Sec-Fetch-Site': 'none',
+  'Cache-Control': 'max-age=0'
 };
 
-module.exports = { fetchCodechefData };
+const fetchCodeChefData = async (username) => {
+  try {
+    const profileUrl = `${CODECHEF_BASE_URL}/users/${username}`;
+
+    const response = await axios.get(profileUrl, {
+      headers: CODECHEF_DEFAULT_HEADERS,
+      timeout: 30000
+    });
+
+    const $ = cheerio.load(response.data);
+
+    const ratingRanks = $("div.rating-ranks");
+
+    const currentRating = parseInt($(".rating-number").first().text()) || 0;
+    const highestRating = parseInt(
+      $(".rating-number").parent().find("small").text().replace(/[^\d]/g, "")) || 0;
+
+    const stars = $(".rating").first().text().trim() || "0★";
+
+    // const globalRank =
+    //   parseInt(
+    //     ratingRanks.find("ul.inline-list li").first().find("strong").text()
+    //   ) || null;
+    // const countryRank =
+    //   parseInt(
+    //     ratingRanks.find("ul.inline-list li").last().find("strong").text()
+    //   ) || null;
+
+    let globalRank = null;
+    let countryRank = null;
+
+    const rankItems = $('ul.inline-list li');
+    rankItems.each((_, el) => {
+      const label = $(el).text().toLowerCase();
+      const valueText = $(el).find('strong').text().trim();
+
+      if (label.includes('global')) {
+        globalRank = /^\d+$/.test(valueText) ? parseInt(valueText) : null;
+      } else if (label.includes('country')) {
+        countryRank = /^\d+$/.test(valueText) ? parseInt(valueText) : null;
+      }
+    });
+
+
+    // Global Rank & Country Rank (with debug logs)
+    // DEBUG: Print entire .rating-ranks HTML
+    console.log("\n=== DEBUG: .rating-ranks HTML ===");
+    console.log(ratingRanks.html() || "No content inside .rating-ranks");
+
+
+    const totalSolved = $(".rating-data-section");
+    const totalProblemsSolved = totalSolved.find("h3").last().text().split(":")[1].trim();
+
+
+    return {
+      platform: 'codechef',
+      username,
+      currentRating,
+      highestRating,
+      globalRank,
+      countryRank,
+      stars,
+      totalProblemsSolved
+
+    };
+
+  } catch (error) {
+    console.error(`codechef fetch error: {error.message}`);
+    throw new Error(
+      error.message.includes('404')
+        ? 'Access blocked by CodeChef (anti-bot protection)'
+        : `Failed to fetch CodeChef data: ${error.message}`
+    )
+  }
+
+};
+
+module.exports = fetchCodeChefData;

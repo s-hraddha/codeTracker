@@ -1,7 +1,7 @@
 const fetchLeetCodeData = require('./fetcher');
 const fetchcodeforceData = require('./fetchCodeForceData');
 const fetchGFGData = require('./fetchGFGData');
-const { fetchCodechefData } = require('./fetchCodeChefData');
+const fetchCodeChefData = require('./fetchCodeChefData');
 
 const fetchPlatformData = async (platform, username) => {
     if (!platform || !username)
@@ -15,7 +15,7 @@ const fetchPlatformData = async (platform, username) => {
         case 'geeksforgeeks':
              return await fetchGFGData(username);  
         case 'codechef':
-            return await fetchCodechefData(username);     
+            return await fetchCodeChefData(username);     
              
 
         default:
