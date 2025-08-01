@@ -1,6 +1,7 @@
 const fetchLeetCodeData = require('./fetcher');
 const fetchcodeforceData = require('./fetchCodeForceData');
 const fetchGFGData = require('./fetchGFGData');
+const { fetchCodechefData } = require('./fetchCodeChefData');
 
 const fetchPlatformData = async (platform, username) => {
     if (!platform || !username)
@@ -12,7 +13,10 @@ const fetchPlatformData = async (platform, username) => {
         case 'codeforces':
              return await fetchcodeforceData(username);
         case 'geeksforgeeks':
-             return await fetchGFGData(username);     
+             return await fetchGFGData(username);  
+        case 'codechef':
+            return await fetchCodechefData(username);     
+             
 
         default:
             throw new Error(`unsupported platform: ${platform}`);
