@@ -35,14 +35,6 @@ const fetchCodeChefData = async (username) => {
 
     const stars = $(".rating").first().text().trim() || "0★";
 
-    // const globalRank =
-    //   parseInt(
-    //     ratingRanks.find("ul.inline-list li").first().find("strong").text()
-    //   ) || null;
-    // const countryRank =
-    //   parseInt(
-    //     ratingRanks.find("ul.inline-list li").last().find("strong").text()
-    //   ) || null;
 
     let globalRank = null;
     let countryRank = null;

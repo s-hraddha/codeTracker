@@ -16,8 +16,6 @@ const fetchPlatformData = async (platform, username) => {
              return await fetchGFGData(username);  
         case 'codechef':
             return await fetchCodeChefData(username);     
-             
-
         default:
             throw new Error(`unsupported platform: ${platform}`);
 
