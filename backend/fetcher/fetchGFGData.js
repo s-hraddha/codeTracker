@@ -51,18 +51,6 @@ const fetchGFGData = async (username) => {
 
             const streak = extractInnerText(".circularProgressBar_head_mid_streakCnt__MFOF1");
 
-            // const getCountFromLabel = (label) => {
-            //     const cards = Array.from(document.querySelectorAll("div"));
-            //     const target = cards.find(card => card.innerText.trim() === label);
-            //     if (!target) return 0;
-
-            //     const valueElement = target.parentElement?.querySelector("div:nth-child(2)");
-            //     if (!valueElement) return 0;
-
-            //     const value = parseInt(valueElement.innerText.trim());
-            //     return isNaN(value) ? 0 : value;
-            // };
-
             const problems = document.querySelector(".problemListSection_head__JAiP6");
 
             const getProblemCount = (index) => {
@@ -98,7 +86,7 @@ const fetchGFGData = async (username) => {
         console.log("Fetched successfully.");
         await browser.close();
 
-        return data; // ✅ Fixed here
+        return data; 
     } catch (error) {
         console.error("Error fetching GFG data:", error.message);
         await browser.close();

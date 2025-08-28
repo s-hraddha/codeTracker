@@ -25,7 +25,9 @@ exports.registerUser = async (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: '7D' }
         );
-        res.status(201).json({token}); //send back the token
+        res.status(201).json({
+            token,
+            message: "registration Successful"}); //send back the token
 
     } catch (error) {
       res.status(500).json({message:'registration failed',error:error.message});
@@ -39,12 +41,12 @@ exports.loginUser = async(req,res) => {
         const exixtingUser = await User.findOne({email});
 
         if(!exixtingUser)
-            res.status(400).json({message: 'Invalid Credentials'});
+            return res.status(400).json({message: 'Username wrong Credentials'});
 
         const isMatch = await bcrypt.compare(password, exixtingUser.password);
 
         if(!isMatch)
-            res.status(400).json({message:'Invalid Credentials'})
+            return res.status(400).json({message:'password wrong Credentials'})
         
         //generate token if credentials is right
         const token = jwt.sign(
@@ -52,9 +54,11 @@ exports.loginUser = async(req,res) => {
             process.env.JWT_SECRET,
             {expiresIn:'7D'}
         );
-        res.status(200).json({token});
+        return res.status(200).json({
+            token,
+        message:"Login Successfuly"});
     } catch (error) {
-       res.status(500).json({message: 'Login Failed',error:error.message}); 
+       return res.status(500).json({message: 'Login Failed',error:error.message}); 
     }
 };
 
@@ -64,9 +68,10 @@ exports.getUserProfile = async(req,res)=>{
         const user = await User.findById(req.user.id).select('-password');
 
         if(!user)
-            res.status(404).json({message:'user not found'});
-        res.status(200).json(user);
+            return res.status(404).json({message:'user not found'});
+
+        return res.status(200).json(user);
     }catch(err){
-        res.status(500).json({message:'failed to fetch profile',error: err.message});
+        return res.status(500).json({message:'failed to fetch profile',error: err.message});
     }
 };
