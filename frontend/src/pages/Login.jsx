@@ -8,6 +8,7 @@ export default function Login() {
         password: "",
     });
     const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { login } = useContext(AuthContext);
 
@@ -18,12 +19,17 @@ export default function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         try {
             const res = await axios.post("http://localhost:5000/api/users/login", formData);
+            
+            console.log("Login Response:", res.data);
 
             const userData = {
-                email: formData.email,
-                token: res.data.token
+                token: res.data.token,
+                username: res.data.user.username, 
+                email: res.data.user.email,       
+                id: res.data.user.id   
             }
             login(userData);
 
@@ -32,11 +38,13 @@ export default function Login() {
         } catch (err) {
             setMessage(err.response?.data?.message || "Login failed");
             console.log(err);
+        }finally{
+            setLoading(false);
         }
     };
     return (
         <div className='flex justify-center items-center min-h-screen bg-gray-900'>
-            <div className='bg-gray-800 p-16 shadow-2xl rounded-2xl'>
+            <div className='bg-gray-800 p-16 shadow-xl/20 shadow-violet-500 ring-2 ring-violet-500/50 rounded-2xl'>
                 <h2 className='text-2xl font-bold text-center text-white mb-6 p-6'>Login</h2>
                 <form onSubmit={handleSubmit} className='space-y-4'>
                     <input

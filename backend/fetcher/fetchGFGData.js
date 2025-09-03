@@ -6,8 +6,13 @@ const fetchGFGData = async (username) => {
 
     const browser = await puppeteer.launch({
         headless: true,
-        args: ["--no-sandbox", "--disable-setuid-sandbox"],
-        userDataDir: cacheDirectory,
+        executablePath: puppeteer.executablePath(),
+        args: [
+            "--no-sandbox",
+            "--disable-setuid-sandbox",
+            "--disable-dev-shm-usage",
+            "--disable-gpu",
+        ],
     });
 
     const page = await browser.newPage();
@@ -19,11 +24,11 @@ const fetchGFGData = async (username) => {
 
         await page.goto(`https://www.geeksforgeeks.org/user/${username}/`, {
             waitUntil: "networkidle2",
-            timeout: 30000,
+            timeout: 60000,
         });
 
         const selector = ".profilePicSection_head_userHandle__oOfFy";
-        await page.waitForSelector(selector, { timeout: 10000 });
+        await page.waitForSelector(selector, { timeout: 20000 });
 
         const data = await page.evaluate(() => {
             const extractInnerText = (selector) => {
@@ -72,12 +77,12 @@ const fetchGFGData = async (username) => {
                 overallScore,
                 totalSolved,
                 streak,
-                problemsSolved:{
-                  school:schoolCount,  
-                  basic: basicCount,
-                  easy: easyCount,
-                  medium: mediumCount,
-                  hard: hardCount,
+                problemsSolved: {
+                    school: schoolCount,
+                    basic: basicCount,
+                    easy: easyCount,
+                    medium: mediumCount,
+                    hard: hardCount,
                 },
             };
         });
@@ -86,7 +91,7 @@ const fetchGFGData = async (username) => {
         console.log("Fetched successfully.");
         await browser.close();
 
-        return data; 
+        return data;
     } catch (error) {
         console.error("Error fetching GFG data:", error.message);
         await browser.close();

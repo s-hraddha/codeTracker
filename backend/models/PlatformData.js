@@ -17,11 +17,7 @@ const platformDataSchema = new mongoose.Schema({
         default: {}
     },
 
-    gfg: {
-        type: Schema.Types.Mixed,
-        default: {}
-    },
-    hackerrank: {
+    geeksforgeeks: {
         type: Schema.Types.Mixed,
         default: {}
     },

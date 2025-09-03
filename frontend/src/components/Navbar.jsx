@@ -5,7 +5,6 @@ import { FaLaptopCode } from "react-icons/fa6";
 
 export default function Navbar() {
   const { user, logout } = useContext(AuthContext);
-
   return (
     <nav className="p-4 bg-black text-white flex items-center justify-between">
       {/* Left Side - Logo */}
@@ -20,10 +19,13 @@ export default function Navbar() {
       <div className="flex items-center space-x-6">
         {user ? (
           <>
-            <span className="font-medium">Welcome, {user.name}</span>
+            <span className="font-medium">Welcome,{user?.username}</span>
+            <Link to="/dashboard" className="hover:underline underline-offset-6 decoration-violet-900">Dashboard</Link>
+
+            <Link to="/profile" className="hover:underline underline-offset-6 decoration-violet-900">Profile</Link>
             <button
               onClick={logout}
-              className="px-3 py-1 bg-red-600 hover:bg-red-700 rounded"
+              className="px-3 py-1 bg-violet-900 hover:bg-violet-700 rounded"
             >
               Logout
             </button>
@@ -42,3 +44,5 @@ export default function Navbar() {
     </nav>
   );
 }
+
+
