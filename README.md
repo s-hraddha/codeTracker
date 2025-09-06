@@ -16,3 +16,8 @@ The platform fetches user profiles and provides detailed insights through graphs
 ⚡ Real-time Fetching – Get the latest data using API calls and web scraping (Puppeteer).
 
 🌐 Responsive UI – Built with React and Tailwind CSS for a smooth experience.
+
+# UI Screenshots
+![Uploading localhost_5173_.png…]()
+
+
