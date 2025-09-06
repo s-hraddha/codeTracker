@@ -19,20 +19,26 @@ The platform fetches user profiles and provides detailed insights through graphs
 
 # UI Screenshots
 
-**Register Page**
-<img width="1920" height="1080" alt="Screenshot (304)" src="https://github.com/user-attachments/assets/3722f637-4708-4a8b-91cb-5619fb82e7d3" />
-
 **Landing Page**
-<img width="1920" height="1080" alt="Screenshot (300)" src="https://github.com/user-attachments/assets/606235ce-6cb1-406b-b134-9030e42796aa" />
+<img width="1920" height="1080" alt="Screenshot (309)" src="https://github.com/user-attachments/assets/af67c80d-881d-42fb-9659-a443dc3a56b2" />
+
+**Register Page**
+<img width="1920" height="1080" alt="Screenshot (305)" src="https://github.com/user-attachments/assets/df6499fc-4e8c-458d-81b2-d8d8567da691" />
 
 **Login Page**
-<img width="1920" height="1080" alt="Screenshot (301)" src="https://github.com/user-attachments/assets/34cf1bbe-ae0a-4366-b445-3cb60258c332" />
+<img width="1920" height="1080" alt="Screenshot (306)" src="https://github.com/user-attachments/assets/977dd07b-ecb9-40ed-93ae-f86f9bc4d677" />
 
 **Dashboard Page**
-*![Uploading Screenshot (302).png…]()
+<img width="1920" height="1080" alt="Screenshot (307)" src="https://github.com/user-attachments/assets/41030ab4-0882-4280-8290-bc5c384a8763" />
 
-**Add Platform Modal Pop-Up**
-<img width="1920" height="1080" alt="Screenshot (303)" src="https://github.com/user-attachments/assets/29ad4b40-ccc0-4556-97f1-100fcf932a47" />
+**Add-Platform Pop-Up
+![Uploading Screenshot (308).png…]()
+
+
+
+
+
+
 
 
 
