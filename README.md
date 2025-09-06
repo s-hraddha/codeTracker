@@ -17,6 +17,14 @@ The platform fetches user profiles and provides detailed insights through graphs
 
 🌐 Responsive UI – Built with React and Tailwind CSS for a smooth experience.
 
+# 🛠️ Tech Stack
+
+Frontend: React (Vite), Tailwind CSS, Recharts
+Backend: Node.js, Express.js
+Database: MongoDB (Mongoose ORM)
+Scraping/Fetching: Puppeteer, Axios
+Authentication: JWT, bcrypt
+
 # UI Screenshots
 
 **Landing Page**
@@ -32,7 +40,11 @@ The platform fetches user profiles and provides detailed insights through graphs
 <img width="1920" height="1080" alt="Screenshot (307)" src="https://github.com/user-attachments/assets/41030ab4-0882-4280-8290-bc5c384a8763" />
 
 **Add-Platform Pop-Up
-![Uploading Screenshot (308).png…]()
+<img width="1920" height="1080" alt="Screenshot (308)" src="https://github.com/user-attachments/assets/a0a31026-c702-4e1f-9d63-54e7dcc60083" />
+
+
+# Installation 
+## setup
 
 
 
