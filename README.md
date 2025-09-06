@@ -43,8 +43,6 @@ Authentication: JWT, bcrypt
 <img width="1920" height="1080" alt="Screenshot (308)" src="https://github.com/user-attachments/assets/a0a31026-c702-4e1f-9d63-54e7dcc60083" />
 
 
-# Installation 
-## setup
 
 
 
