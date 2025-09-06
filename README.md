@@ -7,7 +7,7 @@ The platform fetches user profiles and provides detailed insights through graphs
 
 📊 Performance Tracking – Visualize progress with charts and graphs.
 
-🔗 Multi-Platform Support – Add your coding handles from LeetCode, GFG, Codeforces, HackerRank, and CodeChef.
+🔗 Multi-Platform Support – Add your coding handles from LeetCode, GFG, Codeforces,and CodeChef.
 
 🔐 User Authentication – Secure login and registration using JWT.
 
