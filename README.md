@@ -1,9 +1,9 @@
-**🚀 Code Tracker**
+#🚀 Code Tracker
 
 Code Tracker is a MERN stack web application that allows students and developers to track their coding journey across multiple platforms such as LeetCode, Codeforces, GeeksforGeeks, and CodeChef. 
 The platform fetches user profiles and provides detailed insights through graphs, statistics, and written analysis.
 
-**✨ Features**
+#✨ Features
 
 📊 Performance Tracking – Visualize progress with charts and graphs.
 
