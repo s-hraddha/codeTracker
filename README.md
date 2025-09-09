@@ -1,4 +1,4 @@
-# 🚀 Code Tracker
+<img width="1920" height="1080" alt="Screenshot (308)" src="https://github.com/user-attachments/assets/00737665-0499-47a9-92dd-1d145621d009" /># 🚀 Code Tracker
 
 Code Tracker is a MERN stack web application that allows students and developers to track their coding journey across multiple platforms such as LeetCode, Codeforces, GeeksforGeeks, and CodeChef. 
 The platform fetches user profiles and provides detailed insights through graphs, statistics, and written analysis.
@@ -40,8 +40,11 @@ Authentication: JWT, bcrypt
 <img width="1920" height="1080" alt="Screenshot (307)" src="https://github.com/user-attachments/assets/41030ab4-0882-4280-8290-bc5c384a8763" />
 
 **Add-Platform Pop-Up
-<img width="1920" height="1080" alt="Screenshot (308)" src="https://github.com/user-attachments/assets/a0a31026-c702-4e1f-9d63-54e7dcc60083" />
+<img width="1920" height="1080" alt="Screenshot (308)" src="https://github.com/user-attachments/assets/b687ca9c-599a-490b-bd2f-b60fa87c3d25" />
 
+
+**Performance card**
+<img width="1920" height="1080" alt="Screenshot (317)" src="https://github.com/user-attachments/assets/2402fb3f-0868-415e-9ba5-de3f425608bd" />
 
 
 
