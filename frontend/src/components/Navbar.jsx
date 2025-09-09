@@ -4,7 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 import { FaLaptopCode } from "react-icons/fa6";
 
 export default function Navbar() {
-  const { user, logout } = useContext(AuthContext);
+  const { auth, logout } = useContext(AuthContext);
   return (
     <nav className="p-4 bg-black text-white flex items-center justify-between">
       {/* Left Side - Logo */}
@@ -17,9 +17,9 @@ export default function Navbar() {
 
       {/* Right Side - Auth Links */}
       <div className="flex items-center space-x-6">
-        {user ? (
+        {auth?.token ? (
           <>
-            <span className="font-medium">Welcome,{user?.username}</span>
+            <span className="font-medium">{auth.user.username}</span>
             <Link to="/dashboard" className="hover:underline underline-offset-6 decoration-violet-900">Dashboard</Link>
 
             <Link to="/profile" className="hover:underline underline-offset-6 decoration-violet-900">Profile</Link>

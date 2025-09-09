@@ -8,27 +8,28 @@ import Home from './pages/Home';
 import { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
 import { useEffect } from 'react';
+import AddPlatform from './components/DashBoard/AddPlatform';
 
 function PrivateRoute({ children }) {
-  const { user, loading } = useContext(AuthContext);
+  const { auth, loading } = useContext(AuthContext);
   if (loading) {
     return <div style={{ color: "white", textAlign: "center", marginTop: "50px" }}>
       Loading...
     </div>;
   }
-  return user ? children : <Navigate to="/login" replace />;
+  return auth ? children : <Navigate to="/login" replace />;
 }
 
 function AppRoutes() {
-  const { user, loading } = useContext(AuthContext);
+  const { auth, loading } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    if (!loading && user && location.pathname === "/") {
+    if (!loading && auth && location.pathname === "/") {
       navigate("/dashboard", { replace: true });
     }
-  }, [user, loading, location.pathname, navigate]);
+  }, [auth, loading, location.pathname, navigate]);
 
   return (
     <Routes>
@@ -42,7 +43,10 @@ function AppRoutes() {
             <Dashboard />
           </PrivateRoute>
         }
-      />
+      >
+        {/* Nested routes inside dashboard */}
+        <Route path="addPlatform" element={<AddPlatform />} />
+      </Route>
       <Route
         path="/profile"
         element={

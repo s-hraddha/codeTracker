@@ -22,23 +22,21 @@ export default function Login() {
         setLoading(true);
         try {
             const res = await axios.post("http://localhost:5000/api/users/login", formData);
-            
+
             console.log("Login Response:", res.data);
 
-            const userData = {
-                token: res.data.token,
-                username: res.data.user.username, 
-                email: res.data.user.email,       
-                id: res.data.user.id   
-            }
-            login(userData);
+            login({
+                token:res.data.token,
+                ...res.data.user
+            })
 
-            setMessage(res.data.message );
+
+            setMessage(res.data.message);
             navigate('/dashboard')
         } catch (err) {
             setMessage(err.response?.data?.message || "Login failed");
             console.log(err);
-        }finally{
+        } finally {
             setLoading(false);
         }
     };

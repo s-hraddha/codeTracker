@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import graph from '../assets/graph.png'
 
 export default function Home() {
-  const { user } = useContext(AuthContext);
+  const { auth } = useContext(AuthContext);
   const navigate = useNavigate()
 
   const handleClick = () => {

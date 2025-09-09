@@ -10,14 +10,17 @@ const protect = async (req, res, next) => {
         try {
             //get token from header
             token = req.headers.authorization.split(' ')[1];
+            console.log("Incoming token:", token);
 
             // verify token
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            console.log("Decoded payload:", decoded);
             // attach user to request
             req.user = await User.findById(decoded.id).select('-password');
 
             next(); //continue to controller
         } catch (error) {
+            console.error("JWT error:", error.message);
             return res.status(401).json({ message: 'Not authorized, token failed' });
         }
     }

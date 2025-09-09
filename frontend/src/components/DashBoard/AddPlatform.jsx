@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import axios from "axios";
+import { AuthContext } from "../../context/AuthContext";
 
-export default function AddPlatfrom() {
+export default function AddPlatform({ closeModal, onSuccess }) {
     const [platforms, setPlatforms] = useState([{ platform: "", username: "" }]);
+    const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
+    const { auth } = useContext(AuthContext);
 
     const handleChange = (index, e) => {
         const { name, value } = e.target;
@@ -16,32 +20,47 @@ export default function AddPlatfrom() {
     };
 
     const handleRemove = (index) => {
-        const updatedPlatforms = platforms.filter((_, i) => i == index);
+        const updatedPlatforms = platforms.filter((_, i) => i !== index);
         setPlatforms(updatedPlatforms);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         setMessage("");
 
         try {
-            await axios.post("http://localhost:5000/api/platforms/submit",
+            await axios.post("http://localhost:5000/api/platforms/submitall",
+                { platforms },
                 {
-                    platforms
-                },
-                {
-                    withCredentials: true
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${auth?.token}`
+                    },
                 }
             );
+
             setMessage("platforms saved successfully");
             setPlatforms([{ platform: "", username: "" }]);
-        } catch (err) {
-            console.log(err);
-            setMessage("Error");
+
+            if(typeof onSuccess === "function"){
+                onSuccess();
+            }
+
+            if (typeof closeModal === "function") {
+                closeModal();
+            }
+        } catch (error) {
+            console.error(error);
+            setMessage("Error")
+
+        }finally{
+            setLoading(false);
         }
     };
+
     return (
-        <div className="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-2xl">
+        <div>
             <h2 className="text-2xl font-semibold mb-4">Add Coding Platforms</h2>
 
             {message && (
@@ -52,22 +71,22 @@ export default function AddPlatfrom() {
                 {platforms.map((item, index) => (
                     <div
                         key={index}
-                        className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center border p-3 rounded-lg"
+                        className="flex items-center gap-3 w-full border p-3 rounded-lg bg-slate-900"
                     >
                         {/* Platform Dropdown */}
                         <select
                             name="platform"
                             value={item.platform}
                             onChange={(e) => handleChange(index, e)}
-                            className="border p-2 rounded-md"
+                            className="p-2 rounded-md bg-gray-800 text-white w-1/4 focus:outline-none focus:ring-2 focus:ring-violet-500"
+
                             required
                         >
                             <option value="">Select Platform</option>
                             <option value="leetcode">LeetCode</option>
                             <option value="codeforces">Codeforces</option>
-                            <option value="gfg">GeeksforGeeks</option>
+                            <option value="geeksforgeeks">GeeksforGeeks</option>
                             <option value="codechef">CodeChef</option>
-                            <option value="hackerrank">HackerRank</option>
                         </select>
 
                         {/* Username Input */}
@@ -77,7 +96,7 @@ export default function AddPlatfrom() {
                             value={item.username}
                             onChange={(e) => handleChange(index, e)}
                             placeholder="Enter username"
-                            className="border p-2 rounded-md"
+                            className="p-2 rounded-md bg-gray-800 text-white flex-1 focus:outline-none focus:ring-2 focus:ring-violet-500"
                             required
                         />
 
@@ -86,7 +105,7 @@ export default function AddPlatfrom() {
                             <button
                                 type="button"
                                 onClick={() => handleRemove(index)}
-                                className="bg-red-500 text-white px-3 py-1 rounded-md"
+                                className="p-2 text-red-400 hover:text-red-600"
                             >
                                 Remove
                             </button>
@@ -98,20 +117,21 @@ export default function AddPlatfrom() {
                     <button
                         type="button"
                         onClick={handleAddMore}
-                        className="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md"
+                        className="mt-6 px-6 py-2 bg-violet-900 rounded-lg hover:bg-violet-700 transition text-white"
                     >
                         + Add More
                     </button>
 
                     <button
                         type="submit"
-                        className="bg-green-500 text-white px-4 py-2 rounded-md shadow-md"
+                        disabled={loading}
+                        className="mt-6 px-6 py-2 bg-violet-900 rounded-lg hover:bg-violet-700 transition text-white"
                     >
-                        Submit
+                       {loading? "saving..." : "Submit"}
                     </button>
                 </div>
             </form>
         </div>
-
     );
-}   
+}
+
