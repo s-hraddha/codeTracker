@@ -45,6 +45,8 @@ Authentication: JWT, bcrypt
 **Performance card**
 <img width="1920" height="1080" alt="Screenshot (318)" src="https://github.com/user-attachments/assets/f9d8f4f8-e4aa-41cb-b911-26edf529c772" />
 
+**Graph Card**
+<img width="1920" height="1080" alt="Screenshot (321)" src="https://github.com/user-attachments/assets/f4e8bcd0-a513-40b8-8f03-04c1167a2ad0" />
 
 
 
