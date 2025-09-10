@@ -38,7 +38,7 @@ Authentication: JWT, bcrypt
 **Dashboard Page**
 <img width="1920" height="1080" alt="Screenshot (307)" src="https://github.com/user-attachments/assets/41030ab4-0882-4280-8290-bc5c384a8763" />
 
-**Add-Platform Pop-Up
+**Add-Platform Pop-Up**
 <img width="1920" height="1080" alt="Screenshot (308)" src="https://github.com/user-attachments/assets/b687ca9c-599a-490b-bd2f-b60fa87c3d25" />
 
 **Performance card**
