@@ -7,6 +7,7 @@ import StatsCard from "./StatsCard";
 import PlatformCard from "./PlatformCard";
 import axios from 'axios';
 import AddPlatform from "./AddPlatform";
+import Charts from "./Charts";
 
 export default function Dashboard() {
     const { auth } = useContext(AuthContext);
@@ -15,6 +16,8 @@ export default function Dashboard() {
 
     const [platforms, setPlatforms] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [chartData, setChartData] = useState([]);
+    const [chartType, setChartType] = useState("bar");
 
     const isAddPlatformRoute = location.pathname === "/dashboard/addPlatform";
 
@@ -28,6 +31,26 @@ export default function Dashboard() {
             const platformArray = Object.keys(data).filter((key) => !["_id", "userId", "__v", "createdAt", "updatedAt"].includes(key)).map((key) => ({ platform: key, data: data[key] }));
 
             setPlatforms(platformArray);
+
+            const formatted = platformArray.map((p) => {
+                let solved = 0;
+                if(p.platform === "leetcode"){
+                    solved = p.data?. submitStats?.acSubmissionNum?.find(
+                        (stat) => stat.difficulty === "All"
+                    )?.count || 0;
+                }else if(p.platform === "codechef"){
+                  solved = p.data?.totalProblemsSolved || 0;  
+                }else if (p.platform === "codeforces"){
+                    solved = p.data?.totalProblemsSolved || 0;
+                }else if (p.platform === "geeksforgeeks"){
+                    solved = p.data?.totalSolved || 0;
+                }
+                return {
+                    name: p.platform,
+                    solved,
+                };
+            });
+            setChartData(formatted);
         } catch (error) {
             console.error("Error fetching PLtforms: ", error);
         } finally {
@@ -38,6 +61,8 @@ export default function Dashboard() {
     useEffect(() => {
         fetchPlatforms();
     }, []);
+
+    console.log(chartData);
 
     return (
         <div className="min-h-screen flex flex-col">
@@ -84,6 +109,38 @@ export default function Dashboard() {
                         <>
                             {/* Stats Cards */}
                             <StatsCard platforms={platforms} />
+
+                            {/*Chart Section */}
+                            <div className="my-8 bg-slate-900 rounded-xl p-4">
+                                <h3 className="text-white text-lg font-semibold mb-4">
+                                    Problem Solved Overview
+                                </h3>
+                                <div className="flex gap-3 mb-4">
+                                    <button
+                                        onClick={() => setChartType("bar")}
+                                        className={`px-4 py-1 rounded ${chartType === "bar" ? "bg-violet-700" : "bg-gray-700"
+                                            } text-white`}
+                                    >
+                                        Bar
+                                    </button>
+                                    <button
+                                        onClick={() => setChartType("line")}
+                                        className={`px-4 py-1 rounded ${chartType === "line" ? "bg-violet-700" : "bg-gray-700"
+                                            } text-white`}
+                                    >
+                                        Line
+                                    </button>
+                                    <button
+                                        onClick={() => setChartType("pie")}
+                                        className={`px-4 py-1 rounded ${chartType === "pie" ? "bg-violet-700" : "bg-gray-700"
+                                            } text-white`}
+                                    >
+                                        Pie
+                                    </button>
+                                </div>
+                                <Charts data={chartData} type={chartType} />
+                            </div>
+
 
                             {/* Platform Cards */}
                             <div className="grid gap-6 grid-cols-[repeat(auto-fit,minmax(280px,1fr))]">

@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "puppeteer": "^24.15.0",
-    "react-typed": "^2.0.12"
+    "react-typed": "^2.0.12",
+    "recharts": "^3.2.0"
   }
 }
