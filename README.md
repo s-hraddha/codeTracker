@@ -47,6 +47,11 @@ Authentication: JWT, bcrypt
 **Graph Card**
 <img width="1920" height="1080" alt="Screenshot (321)" src="https://github.com/user-attachments/assets/f4e8bcd0-a513-40b8-8f03-04c1167a2ad0" />
 
+**Profile Section**
+<img width="1920" height="1080" alt="Screenshot (343)" src="https://github.com/user-attachments/assets/75640d11-1246-44f3-8540-c603d87d9c90" />
+
+
+
 
 
 
