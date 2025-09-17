@@ -48,7 +48,8 @@ Authentication: JWT, bcrypt
 <img width="1920" height="1080" alt="Screenshot (321)" src="https://github.com/user-attachments/assets/f4e8bcd0-a513-40b8-8f03-04c1167a2ad0" />
 
 **Profile Section**
-<img width="1920" height="1080" alt="Screenshot (343)" src="https://github.com/user-attachments/assets/75640d11-1246-44f3-8540-c603d87d9c90" />
+<img width="1920" height="1080" alt="Screenshot (344)" src="https://github.com/user-attachments/assets/5f509afb-b7b0-41db-a8cc-765537597c0f" />
+
 
 
 
