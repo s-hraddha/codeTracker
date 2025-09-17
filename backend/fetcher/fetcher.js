@@ -39,7 +39,7 @@ const fetchLeetcodeData = async (username) => {
     //print the response 
     console.log("LeetCode response:", JSON.stringify(res.data, null, 2));
     
-    //Extract the matchedUser object safely using optional chaining 
+    //Extract the matched User object safely using optional chaining 
     const matchedUser = res.data?.data?.matchedUser;
 
     if (!matchedUser) {

@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
+const platformSchema = new mongoose.Schema({
+    platform:{type: String,required: true},
+    username: {type: String, required: true},
+});
+
 const UserSchema = new mongoose.Schema({
     username : {
         type: String,
@@ -23,13 +28,15 @@ const UserSchema = new mongoose.Schema({
         required:true,
         minlength:10
     },
-    platforms:{
-        leetcode:{type:String},
-        codeforces:{type: String},
-        gfg: {type: String},
-        Hackerrank:{type: String},
-        codechef:{type: String},
-    }
+    avatar:{
+        type:String,
+        default: "",
+    },
+    bio:{
+      type:String,
+      default:"",
+    },
+    platforms:[platformSchema],
 });
 
 

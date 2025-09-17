@@ -82,8 +82,57 @@ exports.getUserProfile = async (req, res) => {
         if (!user)
             return res.status(404).json({ message: 'user not found' });
 
-        return res.status(200).json(user);
+        return res.status(200).json({
+            // id: user._id,
+            username: user.username,
+            email: user.email,
+            avatar: user.avatar || "",
+            bio: user.bio || "",
+            platforms: user.platforms.map(p => ({
+                platform: p.platform,
+                username: p.username
+            })) || [],
+        });
     } catch (err) {
         return res.status(500).json({ message: 'failed to fetch profile', error: err.message });
     }
 };
+
+//update user profile
+
+exports.updateProfile = async (req, res) => {
+    try {
+        const { avatar, bio, platforms } = req.body;
+
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({ message: " user not found" });
+        }
+
+        if (avatar !== undefined) user.avatar = avatar;
+        if (bio !== undefined) user.bio = bio;
+
+        if (platforms && Array.isArray(platforms)) {
+            user.platforms = platforms;
+        }
+
+        const updatedUser = await user.save();
+        console.log("after save", updatedUser.platforms);
+
+        return res.status(200).json({
+            // id: updatedUser._id,
+            username: updatedUser.username,
+            email: updatedUser.email,
+            avatar: updatedUser.avatar,
+            bio: updatedUser.bio,
+            platforms: updatedUser.platforms || [],
+
+        })
+    } catch (err) {
+        return res.status(404).json({
+            message: "failed to update",
+            error: err.message,
+        });
+    }
+}

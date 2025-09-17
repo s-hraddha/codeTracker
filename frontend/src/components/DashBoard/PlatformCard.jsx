@@ -52,7 +52,7 @@ export default function PlatformCard({ data }) {
                     <p><span className="font-semibold">Username:</span> {details.username}</p>
                     <p><span className="font-semibold">Current Rating:</span> {details.currentRating}</p>
                     <p><span className="font-semibold">Stars:</span> {details.stars}</p>
-                    <p><span className="font-semibold">Solved:</span> {details.totalProblemsSolved}</p>
+                    <p><span className="font-semibold">Solved:</span> {details.totalProblemSolved}</p>
                 </>
             )}
 

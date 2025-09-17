@@ -30,10 +30,10 @@ export default function StatsCard({ platforms }) {
             solved = allStats ? allStats.count : 0;
             rank = data.profile?.ranking;
         } else if (platform === "codechef") {
-            solved = parseInt(data.totalProblemSolved || 0);
+            solved = parseInt(data.totalProblemsSolved || 0);
             rank = data.currentRating;
         } else if (platform === "codeforces") {
-            solved = parseInt(data.totalProblemSolved || 0);
+            solved = parseInt(data.totalProblemsSolved || 0);
             rank = data.rank;
         } else if (platform === "geeksforgeeks") {
             solved = parseInt(data.totalSolved || 0);
