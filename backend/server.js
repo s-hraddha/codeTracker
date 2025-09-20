@@ -28,6 +28,7 @@ app.use('/api/platforms', platformRoutes);
 //   res.status(404).json({ message: 'API route not found' });
 // });
 
-app.listen(5000,()=>{
+const PORT = process.env.PORT || 5000;
+app.listen(PORT,()=>{
     console.log("app is running on port 5000")
 })
